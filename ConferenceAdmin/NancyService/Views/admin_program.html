@@ -1,0 +1,184 @@
+﻿<div class="row" ng-controller="programCtrl as vm">
+
+    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><h3>Conference Program</h3></div>
+
+        <!-- Loading icon, appearing while table is loading its contents. -->
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs loading-right">
+        <h3 id="loading-icon"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading</h3>
+    </div>
+
+    <!--Conference Program Information -->
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 hide-until-loaded" id="body">
+        <p>The information you include here is used for informational purposes only. It is displayed on the "Program" section of the website. <b>Each file must not exceed 5 MB. Valid file formats include .pdf .doc .docx</b></p>
+        
+        <div class="col-lg-5">
+            <div class="row">
+                <h5 class="after-title-field2">Program Schedule</h5>
+                <div class="upload">
+                    <input type="file" id="programFile" name="upload" file-model="vm.myFile" on-read-file="saveProgramFile($fileContent)" />
+                </div>
+            </div>
+
+            <div class="row">
+                <h5 class="after-title-field2">Abstracts / Bios</h5>
+                <div class="upload">
+                    <input type="file" id="abstractFile" name="upload" file-model="vm.myFile2" on-read-file="saveAbstractFile($fileContent)" />
+                </div>
+            </div>
+
+        </div>
+        <!--Display Saved Documents-->
+        <div class="col-lg-5">
+            <div class="row">
+                <h5>Saved Documents</h5>
+                <div class="templates-list table-box after-title-field">
+                    <ul class="list-group list-group-striped">
+                        <li ng-repeat="doc in vm.documentsList" class="list-group-item">{{doc.name}}<div class="right"><a id="{{doc.ex}}" href="" ng-click="vm.viewDocument(doc.file, doc.ex)">View</a>|<a href="" data-toggle="modal" data-target="#delete" ng-click="vm.selectedFile(doc.name, doc.db)">Delete</a></div></li>
+                        <li ng-hide="vm.documentsList.length">No documents to display.</li> <!--href="/../Scripts/pdfjs/web/viewer.html?file={{doc.ex}}"-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-lg-10">
+                <button class="btn btn-ar btn-primary" ng-click="vm.saveProgram()" ng-disabled="vm.loading || (!pfile && !afile)">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal: Do you want to delete? -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="deleteLabel">Program Information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete the file selected?
+                    </p>
+                    <ul><li>{{vm.file}}</li></ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal" ng-click="vm.removeFile()">Yes!</button>
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="the-canvas"></div>
+
+    <!-- Modal: Delete Confirmation -->
+    <div class="modal fade" id="deleteFileConfirm" tabindex="-1" role="dialog" aria-labelledby="deleteFileConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="deleteFileConfirmLabel">File</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The file has been removed.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Update Confirmation -->
+    <div class="modal fade" id="updateConfirm" tabindex="-1" role="dialog" aria-labelledby="updateConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateConfirmLabel">Program Update</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information has been updated.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Update Error: Dates -->
+    <div class="modal fade" id="updateError2" tabindex="-1" role="dialog" aria-labelledby="updateError2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateError2Label">Program Update Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information could not be updated. Try again later.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Error: Extension -->
+    <div class="modal fade" id="fileExtError" tabindex="-1" role="dialog" aria-labelledby="fileExtErrorLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="fileExtErrorLabel">File Extension Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The file must be in a valid image format:<br />
+                        <ul class="list-unstyled list-inline">
+                            <li>.pdf</li>
+                            <li>.doc</li>
+                            <li>.docx</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Error: Size -->
+    <div class="modal fade" id="fileExtError2" tabindex="-1" role="dialog" aria-labelledby="fileExtError2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="fileExtError2Label">File Size Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The file must not exceed 5 MB:<br />
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+   
+</div>

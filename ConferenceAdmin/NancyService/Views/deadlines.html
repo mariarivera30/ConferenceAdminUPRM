@@ -1,0 +1,97 @@
+﻿<div class="container" ng-controller="deadlinesCtrl2 as vm">
+    <h2 class="section-title">Deadlines</h2>
+    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="col-md-10 hide-until-loaded" id="body">
+            <p ng-hide="vm.registrationDeadline || vm.lateRegistrationDeadline || vm.ideadlineParagraph1 || vm.iothersDeadline || vm.isponsorDeadline || vm.iworkshopDeadline || vm.ipanelDeadline || vm.iposterDeadline || vm.iextendedPaperDeadline || vm.ideadline1 || vm.ideadlineDate1 || vm.ideadline2 || vm.ideadlineDate2 || vm.ideadline3 || vm.ideadlineDate3">No content to display.</p>
+            <div class="p-lg" ng-model="vm.ideadlineParagraph1" ckhtml></div>
+            <table class="table after-title-field" id="deadlinetable" ng-show="vm.registrationDeadline || vm.lateRegistrationDeadline || vm.iothersDeadline || vm.isponsorDeadline || vm.iworkshopDeadline || vm.iposterDeadline || vm.ipanelDeadline || vm.iextendedPaperDeadline || vm.ideadline1 || vm.ideadlineDate1 || vm.ideadline2 || vm.ideadlineDate2 || vm.ideadline3 || vm.ideadlineDate3">
+                <thead>
+                    <tr ng-show="vm.registrationDeadline || vm.lateRegistrationDeadline || vm.isponsorDeadline || vm.ideadline1 || vm.ideadline2 || vm.ideadline3">
+                        <th class="text-left text-red p-lg">Conference Deadlines</th>
+                        <th class="text-left text-red p-lg">Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!--Registration, Sponsors and Custome Deadlines-->
+                    <tr ng-show="vm.registrationDeadline">
+                        <td class="text-left p-lg">Registration</td>
+                        <td class="text-left p-lg">{{vm.registrationDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.lateRegistrationDeadline">
+                        <td class="text-left p-lg">Late Registration</td>
+                        <td class="text-left p-lg">{{vm.lateRegistrationDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.isponsorDeadline">
+                        <td class="text-left p-lg">Sponsorship</td>
+                        <td class="text-left p-lg">{{vm.isponsorDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.ideadline1">
+                        <td class="text-left p-lg">{{vm.ideadline1}}</td>
+                        <td class="text-left p-lg">{{vm.ideadlineDate1}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.ideadline2">
+                        <td class="text-left p-lg">{{vm.ideadline2}}</td>
+                        <td class="text-left p-lg">{{vm.ideadlineDate2}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.ideadline3">
+                        <td class="text-left p-lg">{{vm.ideadline3}}</td>
+                        <td class="text-left p-lg">{{vm.ideadlineDate3}}</td>
+                    </tr>
+
+                    <tr>
+                        <th class="text-left text-red p-lg" ng-show="vm.iextendedPaperDeadline || vm.iposterDeadline || vm.ipanelDeadline || vm.iworkshopDeadline || vm.iothersDeadline">Submission Deadlines</th>
+                        <th class="text-left text-red p-lg" ng-hide="vm.registrationDeadline || vm.lateRegistrationDeadline || vm.isponsorDeadline || vm.ideadline1 || vm.ideadline2 || vm.ideadline3">Date</th>
+                    </tr>
+
+                    <!--Submission deadlines-->
+                    <tr ng-show="vm.iextendedPaperDeadline">
+                        <td class="text-left p-lg">Extended Papers</td>
+                        <td class="text-left p-lg">{{vm.iextendedPaperDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.iposterDeadline">
+                        <td class="text-left p-lg">Posters</td>
+                        <td class="text-left p-lg">{{vm.iposterDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.ipanelDeadline">
+                        <td class="text-left p-lg">Panels</td>
+                        <td class="text-left p-lg">{{vm.ipanelDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.iworkshopDeadline">
+                        <td class="text-left p-lg">Workshops</td>
+                        <td class="text-left p-lg">{{vm.iworkshopDeadline}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.iothersDeadline">
+                        <td class="text-left p-lg">Others</td>
+                        <td class="text-left p-lg">{{vm.iothersDeadline}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <section class="center" ng-show="vm.idateFrom">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Conference Days</div>
+                <div class="panel-body">
+                    <p ng-show="vm.idateFrom && vm.idateTo"><br />{{vm.idateFrom}} - {{vm.idateTo}}</p>
+                    <p ng-show="vm.idateFrom && !vm.idateTo"><br />{{vm.idateFrom}}</p>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+</div>

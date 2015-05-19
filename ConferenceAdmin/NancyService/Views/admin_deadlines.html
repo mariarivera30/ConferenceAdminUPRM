@@ -1,0 +1,134 @@
+﻿<div class="row" ng-controller="deadlinesCtrl as vm">    
+
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><h3>Deadlines Information</h3></div>
+
+    <!-- Loading icon, appearing while table is loading its contents. -->
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs loading-right">
+        <h3 id="loading-icon"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading</h3>
+    </div><br />
+  
+    <!--Deadlines selection from Administrator Settings-->
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <p>The information you include in the following text editor is used for informational purposes only. It is displayed on the "Deadlines" section of the website.</p>
+        <textarea class="form-control" ng-model="vm.deadlineParagraph1" ckeditor="150px"></textarea><br />
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 hide-until-loaded" id="body">
+
+        <h5 class="after-title-field">Submission Deadlines</h5>
+        <p>These deadlines are used for closing submissions.</p>
+
+        <table class="table after-title-field" id="deadlinetable">
+            <thead>
+                <tr>
+                    <th class="text-left">Deadline</th>
+                    <th class="text-left">Date</th>
+                </tr>
+            </thead>
+            <!--Submission Deadlines-->
+            <tbody>
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Extended Paper Deadline</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.extendedPaperDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Poster Deadline</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.posterDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Panel Deadline</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.panelDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Workshop Deadline</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.workshopDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Sponsor Deadline</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.sponsorDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left"><p class="after-title-field text-dark">Others (e.g. BoF)</p></td>
+                    <td class="text-left"><input type="date" class="form-control2" ng-model="vm.othersDeadline"></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <!--Conference Deadlines specification-->
+        <h5 class="after-title-field">Conference Deadlines</h5>
+        <p>Registration deadlines are used for closing conference registration at the specified date. Additional deadlines are used for informational purposes only on the "Deadlines" section of the website.</p>
+        <table class="table after-title-field">
+            <colgroup>
+                <col span="1" style="width: 75%;">
+                <col span="1" style="width: 25%;">
+
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="text-left">Deadline</th>
+                    <th class="text-left">Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="text-left">Registration</td>
+                    <td><input type="date" class="form-control" ng-model="vm.registrationDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td class="text-left">Late Registration</td>
+                    <td><input type="date" class="form-control" ng-model="vm.lateRegistrationDeadline"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" class="form-control" ng-model="vm.deadline1"></td>
+                    <td><input type="date" class="form-control" ng-model="vm.deadlineDate1"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" class="form-control" ng-model="vm.deadline2"></td>
+                    <td><input type="date" class="form-control" ng-model="vm.deadlineDate2"></td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" class="form-control" ng-model="vm.deadline3"></td>
+                    <td><input type="date" class="form-control" ng-model="vm.deadlineDate3"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-ar btn-default" ng-click="vm.reset()">Reload</button>
+        <button class="btn btn-ar btn-primary" ng-click="vm.saveDeadlines()" ng-disabled="vm.loading">Save</button>
+    </div>
+
+    <!--Modal Update Information-->
+    <div class="modal fade" id="updateConfirm" tabindex="-1" role="dialog" aria-labelledby="updateConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateConfirmLabel">Deadlines Update</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information has been updated.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Error Modal-->
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+</div>

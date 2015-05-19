@@ -1,0 +1,79 @@
+﻿<div class="container" ng-controller="contactCtrl as vm">
+    <div class="row hide-until-loaded" id="body">
+        <div class="col-md-12">
+            <h2 class="section-title">Send Message</h2>
+        </div>
+        <div class="col-md-8">
+            <p ng-hide="vm.icontactAdditionalInfo || vm.icontactEmail">No content to display.</p>
+            <!--Contanc Information Details-->
+                <div class="p-lg" ng-show="vm.icontactAdditionalInfo" ng-model="vm.icontactAdditionalInfo" ckhtml></div>
+                <form name="contactForm" novalidate ng-show="vm.icontactEmail">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="name" class="black-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" ng-model="vm.senderName" required>
+                            <label class="help-inline" ng-show="contactForm.name.$invalid && !contactForm.name.$pristine">Name is required.</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="email" class="black-label">Your Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" ng-model="vm.senderEmail" required>
+                            <label class="help-inline" ng-show="contactForm.email.$invalid && !contactForm.email.$pristine">Email is required.</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="message" class="black-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="8" ng-model="vm.senderMessage" required></textarea>
+                            <label class="help-inline" ng-show="contactForm.message.$invalid && !contactForm.message.$pristine">A message is required.</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-ar btn-primary btn-padding" ng-click="vm.sendEmail()" ng-disabled="contactForm.$invalid || vm.iloading">Submit</button>
+                    <div class="clearfix"></div>
+                </form>
+        </div>
+        <!--Additional Information-->
+        <div class="col-md-4">
+            <section ng-show="vm.icontactName || vm.icontactPhone || vm.icontactEmail">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><i class="fa fa-envelope-o"></i>Additional Information</div>
+                    <div class="panel-body">
+                        <h4>Contact</h4>
+                        <strong ng-show="vm.icontactName">{{vm.icontactName}}<br></strong>
+                        <p ng-show="vm.icontactPhone">Phone: {{vm.icontactPhone}}<br></p>
+                        <p ng-show="vm.icontactEmail">Email: <a href="#">{{vm.icontactEmail}}</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--Email has been sent confirmation-->
+    <div class="modal fade" id="emailConfirm" tabindex="-1" role="dialog" aria-labelledby="emailConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="emailConfirmLabel">Email Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Your message has been sent.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Error Modal-->
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+
+</div>

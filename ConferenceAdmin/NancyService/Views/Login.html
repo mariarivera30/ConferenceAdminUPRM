@@ -1,0 +1,27 @@
+﻿ <!--Login tabs html inside this html is ui-view for Login,request Password and sigh Up Htmls -->
+<div ng-controller="loginCtrl as vm">
+    <div class="login-form-full">
+        <div class="fix-box">
+            <div class="text-center title-logo animated fadeInDown animation-delay-5" ng-style="vm.conferenceLogo != '' && {'background-image':'url('+vm.conferenceLogo+')'}"></div>
+            <div class="transparent-div no-padding animated fadeInUp animation-delay-8">
+                <ul class="nav nav-tabs nav-tabs-transparent">
+                    <li><a href="#/Login/Log" >Login</a></li>
+                    <li ng-hide="vm.loged"><a href="#/Login/Signup">Sign Up</a></li>
+                    <li><a href="#/Login/RequestPass" >Request Password</a></li>
+                   
+                </ul>
+
+                <!-- ui-view manage by angular -->
+                <div class="tab-content">
+
+                    <div ui-view="login" autoscroll="false">
+
+                 </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>

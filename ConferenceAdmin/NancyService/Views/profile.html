@@ -1,0 +1,85 @@
+﻿<div class="container" ng-controller="profileCtrl as vm ">
+    <div class="row">
+        <h2 class="section-title">My Profile</h2>
+    </div>
+    <div class="row">
+       
+        <a ng-show="vm.isAdmin" href="" ng-click="vm.adminView()" class="right">Go to Administrator Settings</a>
+       
+    </div>
+  
+    <div class="row">
+        <div class="vertical-tabs-left full-width">
+            <div class="vertical-tab-list noPrint pixels-105" ng-hide="vm.hideMenu">
+                <h5 class="title-centered">
+                    Settings
+                    <button type="button" class="btn btn-ar btn-primary hidden-lg right" ng-click="vm.changeMenu();" style="margin-top: -20px;" ng-hide="vm.hideMenu">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </button>
+                </h5>
+
+                <ul class="nav">
+                    <li ng-show="vm.generalInfo" ng-click="selectedTab='generalInfo';" ng-class="{active: selectedTab=='generalInfo'}">
+                        <a href="#/Profile/GeneralInformation"><i class="fa fa-pencil"> </i> General Information</a>
+                    </li>
+
+                    <li ng-show="vm.application" ng-click="selectedTab='application';" ng-class="{active: selectedTab=='application'}">
+                        <a href="#/Profile/Application"><i class="fa fa-file-text-o"> </i> <span ng-hide="vm.authorization">Application &amp;</span> Registration</a>
+                    </li>
+
+                    <li ng-show="vm.authorization" ng-click="selectedTab='authorization';" ng-class="{active: selectedTab=='authorization'}">
+                        <a href="#/Profile/Authorization"><i class="fa fa-plus-square-o"> </i> Authorization &amp; Application</a>
+                    </li>
+
+                    <li ng-show="vm.submission" ng-click="selectedTab='submission';" ng-class="{active: selectedTab=='submission'}">
+                        <a href="#/Profile/Submissions"><i class="fa fa-newspaper-o"> </i> Submissions</a>
+                    </li>
+
+                    <li ng-show=vm.receipt ng-click="selectedTab='receipt';" ng-class="{active: selectedTab=='receipt'}">
+                        <a href="#/Profile/ReceiptInformation"><i class="fa fa-money"></i> Receipt Information</a>
+                    </li>
+                    <li ng-show="vm.evaluation" ng-click="selectedTab='evaluation';" ng-class="{active: selectedTab=='evaluation'}">
+                        <a href="#/Profile/Evaluations"><i class="fa fa-check-square-o"></i> Evaluations</a>
+                    </li>
+
+
+                    <!--Sposnor Profile-->
+                    <li ng-show="vm.sponsorInfo" ng-click="selectedTab='general';" ng-class="{active: selectedTab=='general'}">
+                        <a href="#/Profile/sponsorgeneralinformation"><i class="fa fa-pencil"> </i> General Information</a>
+                    </li>
+                    <li ng-show="vm.complementary" ng-click="selectedTab='complementary';" ng-class="{active: selectedTab=='complementary'}">
+                        <a href="#/Profile/sponsorcomplementary"><i class="fa fa-key"> </i> Complementary Keys</a>
+                    </li>
+                    <li ng-show="vm.paymentBill" ng-click="selectedTab='paymentBill';" ng-class="{active: selectedTab=='paymentBill'}">
+                        <a href="#/Profile/sponsorpaymentbill"><i class="fa fa-file-text"> </i> PaymentBills </a>
+                    </li>
+                    <li ng-show="vm.donate" ng-click="selectedTab='donate';" ng-class="{active: selectedTab=='donate'}">
+                        <a href="#/Profile/sponsordonate"><i class="fa fa-money"> </i> Donate</a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <!-- vertical-tab-list -->
+            <button type="button" class="btn btn-ar btn-primary hidden-lg" ng-click="vm.changeMenu();" style="margin-top: -45px;" ng-hide="!vm.hideMenu">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </button>
+            <div class="tab-content full-width">
+
+                <div ui-view="profilePage" autoscroll='false'>
+
+
+                </div> <!-- tab-content -->
+
+            </div> <!-- vertical-tabs-left -->
+
+        </div>
+
+
+        <div ui-view="viewEvaluation" autoscroll='false'>
+        </div>
+
+    </div>
+
+</div>

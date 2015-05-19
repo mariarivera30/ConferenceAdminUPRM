@@ -1,0 +1,12 @@
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/obj/Debug/.NETFramework,Version=v4.5.1.AssemblyAttribute.cs
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/EntityFramework.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/EntityFramework.SqlServer.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/SimpleCrypto.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/Nancy.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/Nancy.Authentication.Forms.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/Nancy.Authentication.Token.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/Nancy.Hosting.Aspnet.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/NancyService.dll.mdb
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/bin/NancyService.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/obj/Debug/NancyService.dll
+/Users/MariaRivera/Conference_Admin/ConferenceAdmin/NancyService/obj/Debug/NancyService.dll.mdb

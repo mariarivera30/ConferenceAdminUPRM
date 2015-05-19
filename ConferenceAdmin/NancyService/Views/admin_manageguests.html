@@ -1,0 +1,233 @@
+﻿<div ng-controller="guestCtrl as vm"><!--Code by Jaimeiris-->
+
+    <h3>Manage Guests</h3><br>
+    <div class="col-lg-12">
+        <div ng-show="vm.empty">
+            <p class="title-field">No content to display.</p>
+            <a class="btn btn-default" ng-click="vm.getGuestList(vm.sindex)"><i class="glyphicon glyphicon-repeat"></i> Refresh</a>
+            <!-----------------------loading start--------------------->
+            <div class="col-lg-12" ng-show="vm.uploadingComp">
+                <h3><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>Loading</h3>
+            </div>
+            <!-----------------------loading end--------------------->
+        </div>
+        <div ng-hide="vm.empty">
+            <div class="paging-height-dropdowns">
+                <label class="left" ng-hide="vm.showResult">Search: <input ng-model="vm.criteria" /><!--ng-change="vm.searchGuest()" />--><button type="submit" ng-click="vm.searchGuest(); vm.showResult = true"><i class="fa fa-search"></i></button></label>
+                <label class="left" ng-show="vm.showResult"><button ng-click="vm.getGuestList(vm.sindex); vm.showResult = false; vm.criteria = '';"><i class="glyphicon glyphicon-arrow-left"></i> </button> Showing results for: "{{vm.criteria}}"</label><br />
+                <table ng-table="tableParams" show-filter="true" class="table row">
+                    <thead>
+                        <tr>
+                            <th><b>Name</b></th>
+                            <th><b>User Type</b></th>
+                            <th><b>Authorization Doc.</b></th>
+                            <th><b>Status</b></th>
+                            <th><b>Update</b></th>
+                            <th><b>Registration Status</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="guest in vm.guestList | filter:searchText | orderBy: ['firstName', 'lastName']">
+                            <td>
+                                <a href="" data-toggle="modal" data-target="#profile" ng-click="vm.displayGuest(guest.userID,
+                               guest.firstName, guest.lastName, guest.acceptanceStatus, guest.registrationStatus,
+                               guest.authorizationStatus, guest.title,
+                               guest.affiliationName, guest.line1,
+                               guest.line2, guest.city, guest.state,
+                               guest.country, guest.zipcode, guest.email,
+                               guest.phoneNumber, guest.fax,
+                               guest.day1, guest.day2, guest.day3, guest.companionFirstName, guest.companionLastName)">{{guest.firstName}} {{guest.lastName}}</a>
+                            </td>
+                            <td>{{guest.userTypeName}}</td>
+                            <td><a ng-show="guest.authorizationStatus" href="" data-toggle="modal" data-target="#authorizations" ng-click="vm.displayAuthorizations(guest.userID, guest.firstName, guest.lastName)">View</a></td>
+                            <td>
+                                <span class="accepted" ng-show="guest.acceptanceStatus == 'Accepted'">Accepted</span>
+                                <span class="pending" ng-show="guest.acceptanceStatus == 'Pending'">Pending</span>
+                                <span class="rejected" ng-show="guest.acceptanceStatus == 'Rejected'">Rejected</span>
+                            </td>
+                            <td>
+                                <!--dropdown for acceptance status-->
+                                <div id="button-{{guest.userID}}">
+                                    <select ng-disabled="guest.isRegistered || guest.hasAcceptedSub" ng-model="guest.optionStatus"
+                                            ng-options="acceptanceStatus for acceptanceStatus in vm.acceptanceStatusList"></select>
+                                    <button ng-disabled="guest.isRegistered || guest.hasAcceptedSub" data-toggle="modal" data-target="#confirmAcceptanceChange" class="btn btn-ar btn-primary" ng-click="vm.updateAcceptanceStatus(guest.userID, guest.optionStatus)">Apply</button>
+                                </div>
+                                    <span id="loading-{{guest.userID}}"></span>
+                            </td>
+
+                            <td><!--column for registration status-->
+                                <span ng-show="guest.isRegistered" class="accepted"><i class="fa fa-check"> </i> Registered</span> &nbsp;&nbsp;
+                                <button ng-show="guest.isRegistered" class="btn btn-ar btn-primary btn-small" data-toggle="modal" data-target="#confirmRejection" ng-click="vm.rejectedSelectedGuest(guest.userID)"> <i class="fa fa-times"></i>Cancel</button>
+                                <span ng-hide="guest.isRegistered" class=""> Not Registered</span> &nbsp;&nbsp;
+                                <span id="loading-{{guest.userID}}"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div aria-live="polite" class="col-lg-6">Showing page {{vm.sindex + 1}} of {{vm.smaxIndex}}</div>
+            <div class="col-lg-6 paging-word">
+                <a class="btn btn-default" ng-click="vm.getGuestList(vm.sindex)"><i class="glyphicon glyphicon-repeat"></i></a>
+                <a class="btn btn-default" ng-disabled="vm.sindex==0" ng-click="vm.getFirstGuestPage()">First</a>
+                <a class="btn btn-default" ng-disabled="vm.sindex==0" ng-click="vm.previousGuest()">Previous</a>
+                <!--<span><a class="btn btn-default">{{vm.sindex+1}}</a></span>-->
+                <a class="btn btn-default" ng-disabled="vm.sindex >= (vm.smaxIndex-1)" ng-click="vm.nextGuest()">Next</a>
+                <a class="btn btn-default" ng-disabled="vm.sindex >= (vm.smaxIndex-1)" ng-click="vm.getLastGuestPage()">Last</a>
+            </div>
+        </div>
+        <label>*Guests that have accepted submissions have been automatically accepted to assist to the conference and their status cannot be changed.</label>
+    </div>
+
+
+    <!--MODAL SCREEN begin-->
+    <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">{{vm.modalFirstName}} {{vm.modalLastName}}'s Profile:</h4>
+                </div>
+
+                <div class="modal-body">
+                    <h3>General Information</h3>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Title: </label> {{vm.modalTitle}}
+
+                        </div>
+                        <div class="col-lg-6">
+                            <label>First Name:</label> {{vm.modalFirstName}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Last Name:</label> {{vm.modalLastName}}
+                        </div>
+                    </div><br />
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Affiliation:</label> {{vm.modalAffiliationName}}
+                        </div>
+                    </div>
+
+                    <h4>Mailing Address</h4>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Address 1:</label> {{vm.modalLine1}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Address 2:</label> {{vm.modalLine2}}
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>City:</label> {{vm.modalCity}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>State:</label> {{vm.modalState}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Country:</label> {{vm.modalCountry}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Zip Code:</label> {{vm.modalZipcode}}
+                        </div>
+                    </div>
+
+                    <h4>Contact Information</h4>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Email:</label> {{vm.modalEmail}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Phone Number:</label> {{vm.modalPhoneNumber}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Fax:</label> {{vm.modalFax}}
+                        </div>
+                    </div>
+
+                    <h4 ng-hide="!vm.date1 && !vm.date2 && !vm.date3">Participation Days</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <span ng-show="vm.date1"> {{vm.date1}}&nbsp;&nbsp;<i ng-show="vm.modalDay1" class="fa fa-check"></i></span>
+                            <span ng-show="vm.date2" class="block"> {{vm.date2}} &nbsp;&nbsp;<i ng-show="vm.modalDay2" class="fa fa-check"></i></span>
+                            <span ng-show="vm.date3" class="block"> {{vm.date3}}&nbsp;&nbsp;<i ng-show="vm.modalDay3" class="fa fa-check"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-default left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL SCREEN END-->
+    <!-- authorization MODAL SCREEN begin-->
+    <div class="modal fade" id="authorizations" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">{{vm.authFirstName}} {{vm.authLastName}}'s Authorizations:</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="">
+                        <div ng-repeat="auth in vm.authorizations">
+                            <a href="" ng-mouseover="vm.downloadPDFFile(auth.authorizationSubmittedID)" ng-mouseleave="vm.resetDownloadLink(auth.authorizationSubmittedID)" id="file-{{auth.authorizationSubmittedID}}" class="file-link"><i class="fa fa-file-text file-icon"></i> {{auth.documentName}}</a>
+                        </div>
+                    </div><br />
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-default left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL SCREEN END-->
+    <!-- change acceptance status confirmation modal-->
+    <div class="modal fade" id="confirmAcceptanceChange" tabindex="-1" role="dialog" aria-labelledby="acceptanceLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="acceptanceLabel">Acceptance Status Changed</h4>
+                </div>
+                <div class="modal-body">
+                    The acceptance status has been changed.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-default left" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--change acceptance status confirmation modal end-->
+    <!--reject registered user modal-->
+    <div class="modal fade" id="confirmRejection" tabindex="-1" role="dialog" aria-labelledby="rejectLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="rejectLabel">Reject Guest</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to reject the registration for this guest?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal" ng-click="vm.rejectRegisteredGuest()">Reject</button>
+                    <button class="btn btn-ar btn-default left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end rejection modal-->
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+</div><!--ctrl end-->

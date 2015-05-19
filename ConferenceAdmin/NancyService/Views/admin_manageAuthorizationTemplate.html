@@ -1,0 +1,139 @@
+﻿<div ng-controller="adminAuthTemplates as vm"><!--View to manage authorization template deletion -->
+    <div class="row">
+        <div class="col-lg-9"><h3>Manage Authorization Templates</h3></div>
+        <div class="col-lg-3" ng-show="vm.loading">
+            <h3><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading</h3>
+        </div>
+    </div>
+    <br>
+    <div class="col-lg-12" ng-hide="vm.loading">
+        <div ng-hide="vm.templatesList.length">
+            <p class="title-field">No content to display.</p>
+            <a class="btn btn-default btn-padding" ng-click="vm.getTemplatesFromIndex(vm.tindex)"><i class="glyphicon glyphicon-repeat"></i> Refresh</a>
+        </div>
+        <div ng-show="vm.templatesList.length">
+            <table ng-table="tableParams" class="table row">
+                <thead>
+                    <tr>
+                        <th><b>Name</b></th>
+
+                        <th><b></b></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="template in  vm.templatesList | orderBy: ['name']">
+                    <td data-toggle="modal" data-target="#addTemplate" ng-click="vm.selectedTemplate(template);vm.viewValues()"><a href="">{{template.authorizationName}}</td>
+                    <td data-toggle="modal" data-target="#addTemplate" ng-click="vm.selectedTemplate(template);vm.editValues()"><a href="">Edit</a></td>
+                    <td><a href="" data-toggle="modal" data-target="#delete" ng-click="vm.selectedTemplate(template)"><i class="glyphicon glyphicon-remove"></i></a></td>
+                </tr>
+
+            </table><br />
+            <div aria-live="polite" class="col-lg-6">Showing page {{vm.tindex + 1}} of {{vm.tmaxIndex}}</div>
+            <div class="col-lg-6 paging-word">
+                <a class="btn btn-default" ng-click="vm.getTemplatesFromIndex(vm.tindex)"><i class="glyphicon glyphicon-repeat"></i></a>
+                <a class="btn btn-default" ng-disabled="vm.tindex==0" ng-click="vm.getFirstTemplatePage()">First</a>
+                <a class="btn btn-default" ng-disabled="vm.tindex==0" ng-click="vm.previousTemplate()">Previous</a>
+                <!--<span><a class="btn btn-default">{{vm.tindex+1}}</a></span>-->
+                <a class="btn btn-default" ng-disabled="vm.tindex >= (vm.tmaxIndex-1)" ng-click="vm.nextTemplate()">Next</a>
+                <a class="btn btn-default" ng-disabled="vm.tindex >= (vm.tmaxIndex-1)" ng-click="vm.getLastTemplatePage()">Last</a>
+            </div>
+           </div>
+        <button class="btn btn-ar btn-primary ng-scope" data-toggle="modal" ng-click=" vm.addValues();" data-target="#addTemplate">Add New Template</button> <a href=""><i class="fa fa-info-circle info-icon" title="Adding a Template will include them in the Template selection option."> </i></a>
+
+    </div>
+    <!--Modal View to confirm template deletion -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="deleteLabel">Remove Template</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove the selection?<br />
+                    <label>Name:</label> {{vm.template.authorizationName}}
+
+                </div>
+                <div class="col-lg-12" ng-show="vm.loadingRemoving">
+                    <h3><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Removing</h3>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" ng-click="vm.deleteTemplate()" ng-disabled="vm.loadingRemoving">Remove</button>
+                    <button class="btn btn-ar btn-default left" data-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Modal View to add template and view templates  -->
+    <div class="modal fade" id="addTemplate" tabindex="-1" role="dialog" aria-labelledby="addTemplateLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="addTemplateLabel">{{vm.headerModal}}</h4>
+                </div>
+                <div ng-hide="vm.view" class="modal-body">
+
+                    <form class="after-title-field" id="addTemplateForm" name="addTemplateForm" novalidate>
+
+                            <div class="row">
+                            <div class=" col-md-6">
+                                <label> New Authorization File:</label><br />{{vm.newTempName}}<a ng-if="vm.newTempName != 'Empty'" type="submit" ng-click="vm.clearPic(File)"><i class="glyphicon glyphicon-trash"></i></a> <input id="inputFile" type="file" class="form-control" name="upload" file-model="File" on-read-file="showContent($fileContent,File)" required>
+                                <p ng-show="addTemplateForm.upload.$invalid && !addTemplateForm.upload.$pristine" class="help-block">Authorization file is required.</p>
+                                <p ng-show="vm.ext" class="help-block">Try doc,docx, ppt, pdf extention.</p>
+                                <div id="fileModel-load" class="col-lg-12">
+
+                                </div>
+                            </div>
+
+
+                            <div class=" col-lg-6" ng-hide="vm.add">
+                                <label>Authorization File:</label><br /> {{vm.template.authorizationName}}
+                                <button class="form-control" type="submit" class="btn btn-ar btn-primary right" ng-click="vm.download()">Download</button>
+
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div ng-show="vm.view" class="modal-body">
+                    <form class="after-title-field">
+
+                       
+                        <div class="row">
+                            <div class=" col-lg-8">
+                                <label ng-show="vm.view">Authorization File: </label> {{vm.template.authorizationName}}
+                            </div>
+                            <div class=" col-lg-6">
+                                <button ng-show="vm.view" class="form-control" type="submit" class="btn btn-ar btn-primary right" ng-click="vm.download()">Download</button>
+                            </div>
+                           
+                        </div>
+                    </form>
+
+                </div>
+               
+                <div class="modal-footer">
+                    <button ng-show="vm.edit" class="btn btn-ar btn-primary left" ng-click="vm.updateTemplate(File)" ng-disabled="(addTemplateForm.$invalid ||vm.ext ||vm.loadingUpload)">Save</button>
+                    <button ng-show="vm.add" class="btn btn-ar btn-primary left" ng-click="vm.addTemplate(File)" ng-disabled="(addTemplateForm.$invalid || vm.ext || vm.loadingUpload)">Add</button>
+                    <button ng-hide="vm.view" class="btn btn-ar btn-default left" ng-click="vm.clear()" data-dismiss="modal">Cancel</button>
+                    <div class="col-lg-12" ng-show="vm.loadingUpload">
+                        <h3><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Uploading</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+
+    </div>
+
+</div>

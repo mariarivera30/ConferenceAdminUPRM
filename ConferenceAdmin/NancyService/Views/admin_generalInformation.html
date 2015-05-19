@@ -1,0 +1,216 @@
+﻿<div class="row" ng-controller="generalInfoCtrl as vm">
+
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><h3>General Information</h3></div>
+
+        <!-- Loading icon, appearing while table is loading its contents. -->
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs loading-right">
+        <h3 id="loading-icon"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading</h3>
+    </div>
+
+    <!-- General Conference Information from Administrator Settings -->
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 hide-until-loaded" id="body">
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <h5 class="after-title-field">Conference Acronym</h5>
+                    <input type="text" class="form-control" ng-model="vm.conferenceAcronym">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <h5 class="after-title-field">Conference Name</h5>
+                    <input type="text" class="form-control" ng-model="vm.conferenceName">
+                </div>
+            </div>
+        </div>
+        <!--Upload conference logos-->
+        <h5 class="after-title-field2">Conference Logo</h5>
+        <p>Image must not exceed 5 MB. Valid image formats include .jpg .jpeg .png .pic .pict</p>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="upload col-lg-4 col-md-4 col-sm-4 col-xs-4 input-group">
+                <input type="file" id="imageFile" name="upload" file-model="myFile" on-read-file="saveImg($fileContent)" />
+                <span ng-disabled="!myFile" class="input-group-addon btn" ng-click="vm.clear()">Clear</span>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xs-6 title-field" ng-show="vm.imgExist">
+                <p>Current Image:</p>
+                <div ng-if="content">
+                    <img class="img-size img-responsive" ng-src="{{content}}" />
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-xs-6 title-field" ng-show="vm.show">
+                <p>New Image:</p>
+                <div ng-if="img">
+                    <img class="img-size img-responsive" ng-src="{{img}}" />
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="vm.imgExist">
+                <div><a href="" data-toggle="modal" data-target="#delete">Remove</a></div>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 editor-width">
+                <br />
+                <h5 class="after-title-field2">Conference Days</h5>
+                <p>The conference should not exceed 3 days in duration. These dates are used for conference registration and are displayed on the Deadlines section of the website.</p>
+                <label>From: </label>
+                <input type="date" ng-model="vm.dateFrom" />
+                <label>To:</label>
+                <input type="date" ng-model="vm.dateTo" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-9 col-xs-9">
+                <button class="btn btn-ar btn-default" ng-click="vm.reset()">Reload</button>
+                <button class="btn btn-ar btn-primary" ng-disabled="vm.disabled" ng-click="vm.saveGeneralInfo()">Save</button>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                <h3 ng-show="vm.saveLoading">  <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Do you want to delete? -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="deleteLabel">General Information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Are you sure you want to delete the image?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal" ng-click="vm.removeImage()">Yes!</button>
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Delete Confirmation -->
+    <div class="modal fade" id="deleteImgConfirm" tabindex="-1" role="dialog" aria-labelledby="deleteImgConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="deleteImgConfirmLabel">Image</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The image has been removed.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Confirmation -->
+    <div class="modal fade" id="updateConfirm" tabindex="-1" role="dialog" aria-labelledby="updateConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateConfirmLabel">General Update</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information has been updated.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Error -->
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+
+    <!-- Update Error: Dates -->
+    <div class="modal fade" id="updateError2" tabindex="-1" role="dialog" aria-labelledby="updateError2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateError2Label">General Update Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information could not be updated. Check the selected dates, and try again.
+                    </p>
+                    <ul>
+                        <li>The dates of the conference must not exceed three days.</li>
+                        <li>The start date must be before the selected end date for the conference.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Error: Extension -->
+    <div class="modal fade" id="fileExtError" tabindex="-1" role="dialog" aria-labelledby="fileExtErrorLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="fileExtErrorLabel">Image Extension Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The image must be in a valid image format:<br />
+                        <ul class="list-unstyled list-inline">
+                            <li>.jpg</li>
+                            <li>.jpeg</li>
+                            <li>.png</li>
+                            <li>.pic</li>
+                            <li>.pict</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Error: Size -->
+    <div class="modal fade" id="fileExtError2" tabindex="-1" role="dialog" aria-labelledby="fileExtError2Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="fileExtError2Label">Image Size Error</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The image must not exceed 5 MB:<br />
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

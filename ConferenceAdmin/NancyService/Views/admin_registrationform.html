@@ -1,0 +1,116 @@
+﻿<div class="row" ng-controller="registrationWebCtrl as vm">
+
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"><h3>Registration Content</h3></div>
+
+        <!-- Loading icon, appearing while table is loading its contents. -->
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs loading-right">
+        <h3 id="loading-icon"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading</h3>
+    </div>
+
+    <!--Registration information from Administrator Settings-->
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 hide-until-loaded" id="body">
+        <p>The information you include here is used for informational purposes only. It is displayed on the "Registration" section of the website.</p>
+        <div>
+            <textarea class="form-control" ng-model="vm.registrationParagraph1" ckeditor="200px"></textarea><br />
+        </div>
+        <div class="row">
+            <!--Specify registration fees-->
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h5 class="after-title-field">Registration Fees:</h5>
+                <p>The registration fees will be used for billing purposes. Note: If you indicate $0 for a user group, the registration will be free for the users in that group.</p>
+                <table class="table after-title-field">
+                    <colgroup>
+                        <col span="1" style="width: 50%;">
+                        <col span="1" style="width: 25%;">
+                        <col span="1" style="width: 25%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Registration Cost</th>
+                            <th>Late Registration Cost</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Undergraduate Student</td>
+                            <td><form name="costForm1"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.undergraduateStudentFee"></form></td>
+                            <td><form name="costForm2"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.undergraduateStudentLateFee"></form></td>
+                        </tr>
+
+                        <tr>
+                            <td>Graduate Student</td>
+                            <td><form name="costForm3"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.graduateStudentFee"></form></td>
+                            <td><form name="costForm4"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.graduateStudentLateFee"></form></td>
+                        </tr>
+
+                        <tr>
+                            <td>High School Student</td>
+                            <td><form name="costForm5"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.highSchoolStudentFee"></form></td>
+                            <td><form name="costForm6"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.highSchoolStudentLateFee"></form></td>
+                        </tr>
+
+                        <tr>
+                            <td>Student Companion</td>
+                            <td><form name="costForm7"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.companionStudentFee"></form></td>
+                            <td><form name="costForm8"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.companionStudentLateFee"></form></td>
+                        </tr>
+
+                        <tr>
+                            <td>Professional- Academy</td>
+                            <td><form name="costForm9"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.professionalAcademyFee"></form></td>
+                            <td><form name="costForm10"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.professionalAcademyLateFee"></form></td>
+                        </tr>
+
+                        <tr>
+                            <td>Professional- Industry</td>
+                            <td><form name="costForm11"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.professionalIndustryFee"></form></td>
+                            <td><form name="costForm12"><input type="number" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" step="any" class="form-control" placeholder="$" ng-model="vm.professionalIndustryLateFee"></form></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--Include additional information-->
+        <h5 class="after-title-field">Additional Information:</h5>
+        <div>
+            <textarea class="form-control" ng-model="vm.registrationParagraph2" ckeditor="150px"></textarea><br />
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <button class="btn btn-ar btn-default" ng-click="vm.reset()">Reload</button>
+                <button class="btn btn-ar btn-primary" ng-disabled="costForm1.$invalid || costForm2.$invalid ||costForm3.$invalid || costForm4.$invalid || costForm5.$invalid || costForm6.$invalid || costForm7.$invalid || costForm8.$invalid || costForm9.$invalid || costForm10.$invalid || costForm11.$invalid || costForm12.$invalid || vm.loading" ng-click="vm.saveRegistrationInfo()">Save</button>
+                <label class="help-inline" ng-show="costForm1.$invalid || costForm2.$invalid ||costForm3.$invalid || costForm4.$invalid || costForm5.$invalid || costForm6.$invalid || costForm7.$invalid || costForm8.$invalid || costForm9.$invalid || costForm10.$invalid || costForm11.$invalid || costForm12.$invalid">Check the registration costs. Please, provide a valid amount.</label>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal update confirmation-->
+    <div class="modal fade" id="updateConfirm" tabindex="-1" role="dialog" aria-labelledby="updateConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateConfirmLabel">Registration Update</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information has been updated.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Error modal-->
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+
+</div>

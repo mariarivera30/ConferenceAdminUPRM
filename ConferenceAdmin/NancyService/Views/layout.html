@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html> <!--Main html file. This file is the only file the is render by the server the other files are routed by Angular from front end -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CCWiC</title>
+    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="description" content="">
+    <!-- CSS -->
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+    <link href="css/preload.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/yamm.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-switch.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/animate.min.css" rel="stylesheet" media="screen">
+    <link href="css/slidebars.css" rel="stylesheet" media="screen">
+    <link href="css/lightbox.css" rel="stylesheet" media="screen">
+    <link href="css/jquery.bxslider.css" rel="stylesheet">
+    <link href="css/jquery.dataTables.css" rel="stylesheet">
+    <link href="css/syntaxhighlighter/shCore.css" rel="stylesheet" media="screen">
+    <link href="css/style-red.css" rel="stylesheet" media="screen" title="default">
+    <link href="css/print.css" rel="stylesheet" media="print">
+    <link href="css/width-full.css" rel="stylesheet" media="screen" title="default">
+    <link href="css/buttons.css" rel="stylesheet" media="screen">
+    <link href="Scripts/ng-table/ng-table.min.css" rel="stylesheet" />
+    <link href="../css/fileinput.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <script src="../js/fileinput.js"></script>
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-animate.js"></script>
+    <script src="/Scripts/angular-sanitize.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts/ng-ckeditor-master/ng-ckeditor.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="/App/app.js"></script>
+
+
+    <script src="/App/profileSponsorCtrl.js"></script>
+    <script src="/App/profileSponsorBillCtrl.js"></script>
+    <script src="/App/sponsorDonateCtrl.js"></script>
+    <script src="/App/sponsorRegistrationCtrl.js"></script>
+    <script src="/App/profileComplementaryCtrl.js"></script>
+    <script src="/App/abstractCtrl.js"></script>
+    <script src="/App/administratorCtrl.js"></script>
+    <script src="/App/adminCtrl.js"></script>
+    <script src="/App/bannerCtrl.js"></script>
+    <script src="/App/changePassCtrl.js"></script>
+    <script src="/App/committeeCtrl.js"></script>
+    <script src="/App/committeeCtrl2.js"></script>
+    <script src="/App/contactCtrl.js"></script>
+    <script src="/App/controller.js"></script>
+    <script src="/App/generalInfoCtrl.js"></script>
+    <script src="/App/evaluatorCtrl.js"></script>
+    <script src="/App/homeCtrl.js"></script>
+    <script src="/App/homeCtrl2.js"></script>
+    <script src="/App/layoutCtrl.js"></script>
+    <script src="/App/loginCtrl.js"></script>
+    <script src="/App/papersCtrl.js"></script>
+    <script src="/App/programCtrl.js"></script>
+    <script src="/App/programCtrl2.js"></script>
+    <script src="/App/registrationCtrl.js"></script>
+    <script src="/App/registrationWebCtrl.js"></script>
+    <script src="/App/sponsorInterfaceCtrl.js"></script>
+    <script src="/App/sponsorInterfaceCtrl2.js"></script>
+    <script src="/App/sponsorCtrl.js"></script>
+    <script src="/App/topicCtrl.js"></script>
+    <script src="/App/venueCtrl.js"></script>
+    <script src="/App/workshopsCtrl.js"></script>
+    <script src="/App/deadlinesCtrl.js"></script>
+    <script src="/App/deadlinesCtrl2.js"></script>
+    <script src="/App/reportCtrl.js"></script>
+    <script src="/App/services.js"></script>
+    <script src="/App/profileCtrl.js"></script>
+    <script src="/App/profileAuthorizationCtrl.js"></script>
+    <script src="/App/profileBenefitsCtrl.js"></script>
+    <script src="/App/profileBillCtrl.js"></script>
+    <script src="/App/profileInformationCtrl.js"></script>
+    <script src="/App/profileStatusCtrl.js"></script>
+    <script src="/App/profileSubmissionsCtrl.js"></script>
+    <script src="/App/profileEvaluationCtrl.js"></script>
+    <script src="/App/participationInformation.js"></script>
+    <script src="/App/guestCtrl.js"></script>
+    <script src="/App/fileModel.js"></script>
+    <script src="/App/adminTemplateCtrl.js"></script>
+    <script src="/App/ushersCtrl.js"></script>
+    <script src="/App/signUpCtrl.js"></script>
+    <script src="/App/requestPassCtrl.js"></script>
+    <script src="/App/adminAuthTemplatesCtrl.js"></script>
+    <script src="/App/modalController-Directive.js"></script>
+    <script src="/App/validateCtrl.js"></script>
+    <script src="/App/submissionsCtrl.js"></script>
+    <script src="/App/paymentReceiptCtrl.js"></script>
+    <script src="/App/paymentCtrl.js"></script>
+    <script src="/App/paymentErrorCtrl.js"></script>
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-app="app" ng-controller="layoutCtrl as vm">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+
+    <div id="sb-site">
+        <div class="boxed">
+            <header id="header-full-top" class="hidden-xs header-full noPrint">
+
+                <div class="container" id="conferenceName">
+                    <div class="header-full-title" ng-style="vm.conferenceLogo != '' && {'background-image':'url('+vm.conferenceLogo+')'}">
+                        <h1 class="animated fadeInRight"><a href="#/Home"><span ng-bind="vm.conferenceAcronym"></span></a></h1>
+                        <p class="animated fadeInRight" ng-bind="vm.conferenceName"></p>
+
+                    </div>
+                    <nav class="top-nav">
+                        <ul class="top-nav-social hidden-md hidden-sm">
+                            <li><a href="https://twitter.com/hashtag/ccwic" class="animated fadeIn animation-delay-7 twitter" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.facebook.com/ccwic2014" class="animated fadeIn animation-delay-8 facebook" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://plus.google.com/s/ccwic" class="animated fadeIn animation-delay-9 google-plus" target="_blank" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+
+                            <!-- <li><a href="#" class="animated fadeIn animation-delay-9 instagram"><i class="fa fa-instagram"></i></a></li> -->
+                        </ul>
+                        <ul class="top-nav-social">
+                            <li><a ng-hide="vm.showProfile" href="#/Login/Log"><i class="fa fa-user"></i> Login | Sign-Up</a></li>
+                            <li><a ng-show="vm.showProfile" href="" ng-click="vm.profileView()"><i class="fa fa-user"></i> Profile</a></li>
+
+                            <li><a ng-show="vm.showAdminsitrator" href="" ng-click="vm.adminView()"><i class="fa fa-gear"></i> Administrator </a></li>
+
+                            <li></li>
+                            <li></li>
+
+                            <!-- <li><a href="#" class="animated fadeIn animation-delay-9 instagram"><i class="fa fa-instagram"></i></a></li> -->
+                        </ul>
+                        <ul ng-show="vm.showProfile" class="top-nav-social">
+
+                            <li ng-show="vm.showProfile"><a href="#/Home" ng-click="vm.logout()">Logout | {{vm.messageLogOut.split('@')[0]}}</a></li>
+
+                        </ul>
+
+                    </nav>
+                </div> <!-- container -->
+            </header> <!-- header-full -->
+
+            <nav id="header" class="navbar navbar-static-top navbar-default navbar-header-full navbar-dark noPrint" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand hidden-lg hidden-md hidden-sm col-xs-4" href="#/Home"><span>CCWiC</span></a>
+                        <a class="white right hidden-lg hidden-md hidden-sm" ng-hide="vm.showProfile" href="#/Login/Log"><i class="fa fa-user"></i> Login | Sign-Up</a>
+
+                    </div> <!-- navbar-header -->
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Home">Home</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Committee">Committee</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Venue">Venue</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Deadlines">Deadlines</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Registration">Registration</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Participation">Call for Participation</a>
+                            </li>
+
+                            <li class="hidden-xs dropdown" ng-controller="programCtrl2 as vm">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Program</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a id="program" href="" ng-click="vm.viewProgram()">Program Schedule</a></li>
+                                    <li><a id="abstract" href="" ng-click="vm.viewAbstract()">Abstracts / Bios</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Sponsors">Sponsors</a>
+                            </li>
+                            <li class="hidden-xs dropdown non-dropdown">
+                                <a href="#/Contact">Contact</a>
+                            </li>
+                            <!-------Mobile --->
+
+                            <li class="visible-xs dropdown" ng-show="vm.showProfile">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">CCWiC Account</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li class="visible-xs dropdown non-dropdown">
+                                        <a ng-show="vm.showProfile" href="" ng-click="vm.profileView()" data-toggle="collapse" data-target=".navbar-collapse">My Profile</a>
+                                    </li>
+                                    <li class="visible-xs dropdown non-dropdown">
+                                        <a ng-show="vm.showAdminsitrator" href="" ng-click="vm.adminView()" data-toggle="collapse" data-target=".navbar-collapse">Administrator Settings</a>
+                                    </li>
+                                    <li class="visible-xs dropdown non-dropdown">
+                                        <a ng-show="vm.showProfile" href="#/Home" ng-click="vm.logout()" data-toggle="collapse" data-target=".navbar-collapse">Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Home">Home</a>
+                            </li>
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Committee">Planning Committee</a>
+                            </li>
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Venue">Venue</a>
+                            </li>
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Deadlines">Deadlines</a>
+                            </li>
+                            <li class=" visible-xs dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Registration">Registration</a>
+                            </li>
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Participation">Call for Participation</a>
+                            </li>
+
+                            <li class=" visible-xs dropdown" ng-controller="programCtrl2 as vm">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Program</a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="" ng-click="vm.viewProgram()">Program Schedule</a></li>
+                                    <li><a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="" ng-click="vm.viewAbstract()">Abstracts / Bios</a></li>
+                                </ul>
+                            </li>
+
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Sponsors">Sponsors</a>
+                            </li>
+                            <li class=" visible-xs  dropdown non-dropdown">
+                                <a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" href="#/Contact">Contact</a>
+                            </li>
+
+                        </ul>
+                    </div><!-- navbar-collapse -->
+                </div><!-- container -->
+            </nav>
+
+            <div id="content" class="container">
+
+                <div class="row " style="min-height:550px">
+
+                    <div ui-view=" dynamic" autoscroll=" false">
+                        <!-- section -->
+
+                    </div>
+                </div>
+                <div class="row btn-padding">
+                    <div id="content" class="noPrint">
+
+                        <div ui-view="banner" autoscroll="false" class="col-lg-12 col-md-12 col-sm-12 margin-fix-banner">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <modal source="vm.obj" okcallback="vm.goTo(vm.goPath);" visible="vm.showConfirmModal"></modal>
+            </div>
+
+            <footer id="footer" class="noPrint row">
+                <p>&copy; 2014 <a href="#">Artificial Reason</a>, inc. All rights reserved.</p>
+            </footer>
+
+        </div> <!-- boxed -->
+    </div> <!-- sb-site -->
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-switch.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/slidebars.js"></script>
+    <script src="js/jquery.bxslider.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script src="js/buttons.js"></script>
+    <script src="js/styleswitcher.js"></script>
+    <script src="js/jquery.mixitup.min.js"></script>
+    <script src="js/circles.min.js"></script>
+    <script src="/js/jspdf.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/js/jspdf.plugin.table.js"></script>
+
+    <!-- Syntaxhighlighter -->
+    <script src="js/syntaxhighlighter/shCore.js"></script>
+    <script src="js/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="js/syntaxhighlighter/shBrushJScript.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- <script src="Scripts/ng-table/ng-table.min.js"></script>-->
+    <script src="Scripts/ng-table/ng-table.js"></script>
+    <script src="Scripts/ckeditor/ckeditor.js"></script>
+</body>
+
+</html>

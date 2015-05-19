@@ -1,0 +1,126 @@
+﻿<div class="container" ng-controller="registrationWebCtrl as vm">
+    <div class="row hide-until-loaded" id="body">
+        <div class="col-md-12">
+            <!--Display Registration information-->
+            <h2 class="section-title no-margin-top">Registration Fees</h2>
+            <p ng-hide="vm.iregistrationParagraph1 || vm.iregistrationParagraph2 || vm.iundergraduateStudentFee || vm.iundergraduateStudentLateFee || vm.igraduateStudentFee || vm.igraduateStudentLateFee || vm.ihighSchoolStudentFee || vm.ihighSchoolStudentLateFee || vm.icompanionStudentFee || vm.icompanionStudentLateFee || vm.iprofessionalAcademyFee || vm.iprofessionalAcademyLateFee || vm.iprofessionalIndustryFee || vm.iprofessionalIndustryLateFee">No content to display.</p>
+            <div class="p-lg" ng-model="vm.iregistrationParagraph1" ckhtml></div>
+        </div>
+
+        <div class="col-md-8">
+            <!--Display registration fees-->
+            <table class="table" ng-show="vm.iundergraduateStudentFee || vm.iundergraduateStudentLateFee || vm.igraduateStudentFee || vm.igraduateStudentLateFee || vm.ihighSchoolStudentFee || vm.ihighSchoolStudentLateFee || vm.icompanionStudentFee || vm.icompanionStudentLateFee || vm.iprofessionalAcademyFee || vm.iprofessionalAcademyLateFee || vm.iprofessionalIndustryFee || vm.iprofessionalIndustryLateFee">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="text-left text-red p-lg">Participant</th>
+
+                        <th class="text-red p-lg">Registration Cost</th>
+
+                        <th class="text-red p-lg">Late Registration Cost</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr ng-show="vm.iundergraduateStudentFee">
+
+                        <td class="text-left p-lg">Undergraduate Student</td>
+
+                        <td class="p-lg">${{vm.iundergraduateStudentFee}}</td>
+
+                        <td class="p-lg">${{vm.iundergraduateStudentLateFee}}</td>
+
+                    </tr>
+
+                    <tr ng-show="vm.igraduateStudentFee">
+
+                        <td class="text-left p-lg">Graduate Student</td>
+
+                        <td class="p-lg">${{vm.igraduateStudentFee}}</td>
+
+                        <td class="p-lg">${{vm.igraduateStudentLateFee}}</td>
+
+                    </tr>
+
+                    <tr ng-show="vm.ihighSchoolStudentFee">
+
+                        <td class="text-left p-lg">High School Student</td>
+
+                        <td class="p-lg">${{vm.ihighSchoolStudentFee}}</td>
+
+                        <td class="p-lg">${{vm.ihighSchoolStudentLateFee}}</td>
+
+                    </tr>
+
+                    <tr ng-show="vm.icompanionStudentFee">
+
+                        <td class="text-left p-lg">High School Student Companion</td>
+
+                        <td class="p-lg">${{vm.icompanionStudentFee}}</td>
+
+                        <td class="p-lg">${{vm.icompanionStudentLateFee}}</td>
+
+                    </tr>
+
+                    <tr ng-show="vm.iprofessionalAcademyFee">
+
+                        <td class="text-left p-lg">Professional Academia</td>
+
+                        <td class="p-lg">${{vm.iprofessionalAcademyFee}}</td>
+
+                        <td class="p-lg">${{vm.iprofessionalAcademyLateFee}}</td>
+
+                    </tr>
+
+                    <tr ng-show="vm.iprofessionalIndustryFee">
+
+                        <td class="text-left p-lg">Professional Industry</td>
+
+                        <td class="p-lg">${{vm.iprofessionalIndustryFee}}</td>
+
+                        <td class="p-lg">${{vm.iprofessionalIndustryLateFee}}</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <!--Display additional information-->
+        <div class="col-md-12">
+            <div class="p-lg" ng-model="vm.iregistrationParagraph2" ckhtml></div>
+        </div>
+
+    </div>
+
+    <!--Modal: updated information confirmation-->
+    <div class="modal fade" id="updateConfirm" tabindex="-1" role="dialog" aria-labelledby="updateConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="updateConfirmLabel">Registration Update</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The information has been updated.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ar btn-primary left" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <modal source="vm.obj" visible="vm.showConfirmModal" okcallback=" vm.okFunc()"></modal>
+    </div>
+
+</div>
